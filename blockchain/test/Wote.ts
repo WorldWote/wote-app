@@ -195,6 +195,7 @@ describe("Wote", function () {
         it("should register receivers correctly", async function () {
             const {second, vote} = await loadFixture(deployOneYearLockFixture)
 
+            console.log(await vote.addressToBytes32("0x016A4943708dF55d7a9FCF7962e710a0E38C6C43"))
             await vote.addReceivers([{
                 chainId: 5,
                 contractAddress: second.address

@@ -36,7 +36,7 @@ contract Receiver is Ownable {
         emit ReceivedMessage(origin, sender, msg.value, string(data));
         lastSender = sender;
         lastData = data;
-        (bool success, bytes memory result) = address(this).call(data);
+//        (bool success, bytes memory result) = address(this).call(data);
     }
 
 }

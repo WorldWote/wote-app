@@ -28,6 +28,8 @@ contract Wote is Ownable {
     /// @notice Thrown when attempting to reuse a nullifier
     error InvalidNullifier();
 
+    uint256 public constant fee = 0.01 ether;
+
     /// @dev The address of the World ID Router contract that will be used for verifying proofs
     IWorldIDGroups public immutable worldId;
 
@@ -73,7 +75,7 @@ contract Wote is Ownable {
     }
 
     // alignment preserving cast
-    function addressToBytes32(address _addr) internal pure returns (bytes32) {
+    function addressToBytes32(address _addr) external pure returns (bytes32) {
         return bytes32(uint256(uint160(_addr)));
     }
 
@@ -117,7 +119,7 @@ contract Wote is Ownable {
 
         for (uint256 k = 0; k < receivers.length; ++ k ) {
             // send message  recipient
-            IMailbox(mailboxAddress).dispatch(
+            IMailbox(mailboxAddress).dispatch{value: fee}(
                 receivers[k].chainId,
                 receivers[k].contractAddress.addressToBytes32(),
                 bytes("hello, world")
@@ -152,4 +154,10 @@ contract Wote is Ownable {
     function getCandidates() public view returns (Candidate[] memory) {
         return candidates;
     }
+
+    /// @dev receive the money
+    receive() external payable {
+        // This function is executed when a contract receives plain Ether (without data)
+    }
+
 }
