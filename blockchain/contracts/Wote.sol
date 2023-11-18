@@ -7,10 +7,10 @@ import { Ownable } from "@openzeppelin/contracts/access/Ownable.sol";
 pragma solidity 0.8.21;
 
 struct Candidate {
-    address candidateAddress;
+    uint256 id;
     string name;
     string description;
-    string imageURL;
+    string imageUrl;
 }
 
 contract Wote is Ownable {
@@ -33,6 +33,9 @@ contract Wote is Ownable {
 
     /// @dev candidates array
     Candidate[] public candidates;
+
+    /// @dev used ids
+    mapping(uint256 => bool) usedId;
 
     /// @dev count of the votes of the candidates
     mapping(uint256 => uint256) public votes;
@@ -89,9 +92,14 @@ contract Wote is Ownable {
         votes[option] += 1;
     }
 
-    /// @param candidate info about candidate, see Candidate structure
-    function registerCandidate(Candidate memory candidate) public onlyOwner {
-        candidates.push(candidate);
+    /// @param _candidates list of candidates the owner wants to add
+    function registerCandidate(Candidate[] memory _candidates) public onlyOwner {
+        for (uint256 k = 0; k < _candidates.length; ++ k){
+            Candidate memory candidate = _candidates[k];
+            require(!usedId[candidate.id], "Wote: can't register candidate, already used id");
+            usedId[candidate.id] = true;
+            candidates.push(candidate);
+        }
     }
 
     /// @dev gets all candidates
