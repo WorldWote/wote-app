@@ -10,8 +10,7 @@ import VotesChart from '../components/VotesChart';
 function Results() {
   const { data: candidates } = useCandidates();
   const { data: receivers } = useReceivers();
-
-  console.log(receivers);
+  const [votes, setVotes] = React.useState<number[][]>([]);
 
   const getVotes = async (
     chainId: number,
@@ -23,12 +22,10 @@ function Results() {
         address: contractAddress,
         chainId: chainId,
         abi: abis.wote,
-        functionName: 'vote',
+        functionName: 'votes',
         args: [candidate.id],
       })),
     });
-
-    console.log(result);
 
     return result?.map((r) => Number(r?.result)) || [];
   };
@@ -44,31 +41,45 @@ function Results() {
 
   useEffect(() => {
     getAllVotes().then((votes) => {
-      console.log(votes);
+      setVotes(votes);
     });
-  }, [getAllVotes]);
+  }, []);
 
   return (
     <>
       <Card className="w-100 mb-4">
+        <Card.Header>Current Votes</Card.Header>
         <Card.Body>
           <VotesChart candidates={candidates} />
         </Card.Body>
       </Card>
-      {/*<Card className="w-100">*/}
-      {/*  <Card.Body>*/}
-      {/*    <Table striped bordered hover variant="dark">*/}
-      {/*      <thead>*/}
-      {/*        <tr>*/}
-      {/*          <th></th>*/}
-      {/*          <th>OptimismGoerli</th>*/}
-      {/*          <th></th>*/}
-      {/*        </tr>*/}
-      {/*      </thead>*/}
-      {/*      <tbody></tbody>*/}
-      {/*    </Table>*/}
-      {/*  </Card.Body>*/}
-      {/*</Card>*/}
+      <Card className="w-100">
+        <Card.Header>Votes records from different networks</Card.Header>
+        <Card.Body>
+          <Table striped bordered hover variant="dark">
+            <thead>
+              <tr>
+                <th>Candidate #</th>
+                <th>Name</th>
+                <th>OptimismGoerli</th>
+                <th>Goerli</th>
+                <th>ScrollSepolia</th>
+              </tr>
+            </thead>
+            <tbody>
+              {candidates?.map((candidate, index) => (
+                <tr key={candidate.id}>
+                  <td>{candidate.id}</td>
+                  <td>{candidate.name}</td>
+                  <td>{candidate.voteCount}</td>
+                  <td>{votes?.[0]?.[index]}</td>
+                  <td>{votes?.[1]?.[index]}</td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
+        </Card.Body>
+      </Card>
     </>
   );
 }

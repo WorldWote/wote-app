@@ -22,10 +22,23 @@ export const options = {
       position: 'top' as const,
     },
     title: {
-      display: true,
+      display: false,
       text: 'Current Vote Results',
     },
   },
+  scales: {
+    y: {
+      title: {
+        display: true,
+        text: 'Value'
+      },
+      min: 0,
+      ticks: {
+        // forces step size to be 50 units
+        stepSize: 1
+      }
+    }
+  }
 };
 
 type Props = {

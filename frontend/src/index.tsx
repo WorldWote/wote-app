@@ -8,6 +8,7 @@ import {createWeb3Modal, defaultWagmiConfig} from '@web3modal/wagmi/react';
 import {WagmiConfig} from 'wagmi';
 import {DEFAULT_CHAIN, PROJECT_ID} from './settings';
 import {BrowserRouter} from 'react-router-dom';
+import { goerli, scrollSepolia } from "viem/chains";
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 
@@ -22,7 +23,7 @@ const metadata = {
   // icons: ['https://avatars.githubusercontent.com/u/37784886']
 };
 
-const chains = [DEFAULT_CHAIN];
+const chains = [DEFAULT_CHAIN, goerli, scrollSepolia];
 const wagmiConfig = defaultWagmiConfig({chains, projectId, metadata});
 
 // 3. Create modal
