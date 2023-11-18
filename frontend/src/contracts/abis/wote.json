@@ -240,7 +240,7 @@
             },
             {
                 "internalType": "uint256",
-                "name": "option",
+                "name": "candidateId",
                 "type": "uint256"
             }
         ],

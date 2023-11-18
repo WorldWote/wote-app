@@ -68,7 +68,7 @@ contract Wote is Ownable {
         uint256 root,
         uint256 nullifierHash,
         uint256[8] calldata proof,
-        uint256 option
+        uint256 candidateId
     ) public {
         // First, we make sure this person hasn't done this before
         if (nullifierHashes[nullifierHash]) revert InvalidNullifier();
@@ -87,10 +87,10 @@ contract Wote is Ownable {
         nullifierHashes[nullifierHash] = true;
 
         // actual vote logic
+        require(usedId[candidateId], "Wote: invalid candidate Id");
 
-        require(option < candidates.length, "Wote: Invalid option");
         // increasing option's vote count
-        votes[option] += 1;
+        votes[candidateId] += 1;
     }
 
     /// @param _candidates list of candidates the owner wants to add

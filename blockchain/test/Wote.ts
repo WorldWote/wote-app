@@ -81,6 +81,104 @@ describe("Wote", function () {
             expect(candidates[0].description).to.be.equal(candidate.description)
             expect(candidates[0].imageUrl).to.be.equal(candidate.imageUrl)
         });
+
+        it("Should increase vote correctly", async function () {
+            const {vote, owner} = await loadFixture(deployOneYearLockFixture)
+
+            const candidate = {
+                id: 1,
+                description: "test1",
+                imageUrl: "test2",
+                name: "test3"
+            }
+
+            await vote.registerCandidates([candidate])
+
+            const candidates = await vote.getCandidates();
+
+            const id = candidates[0].id
+
+            await vote.verifyAndExecute(
+                owner.address,
+                "0x123123",
+                "123213213",
+                [0,1,2,3,4,5,6,7],
+                id
+            )
+
+            expect(await vote.votes(id))
+                .to.be.equal(1)
+        });
+
+        it("Should fail while increasing without fail id", async function () {
+            const {vote, owner} = await loadFixture(deployOneYearLockFixture)
+
+            const candidate = {
+                id: 1,
+                description: "test1",
+                imageUrl: "test2",
+                name: "test3"
+            }
+
+            await vote.registerCandidates([candidate])
+
+            const candidates = await vote.getCandidates();
+
+            await expect(vote.verifyAndExecute(
+                owner.address,
+                "0x123123",
+                "123213213",
+                [0,1,2,3,4,5,6,7],
+                0
+            )).to.be.revertedWith("Wote: invalid candidate Id")
+
+        });
+
+        it("Should increase vote correctly, with multtiple candidates", async function () {
+            const {vote, owner} = await loadFixture(deployOneYearLockFixture)
+
+            const candidate = {
+                id: 1,
+                description: "test1",
+                imageUrl: "test2",
+                name: "test3"
+            }
+
+            const candidate1 = {
+                id: 2,
+                description: "test1",
+                imageUrl: "test2",
+                name: "test3"
+            }
+            await vote.registerCandidates([candidate, candidate1])
+
+            const candidates = await vote.getCandidates();
+
+            const id = candidates[0].id
+            const id1 = candidates[1].id
+
+            await vote.verifyAndExecute(
+                owner.address,
+                "0x123123",
+                "123213213",
+                [0,1,2,3,4,5,6,7],
+                id
+            )
+
+            await vote.verifyAndExecute(
+                owner.address,
+                "0x123123",
+                "1232132123",
+                [0,1,2,3,4,5,6,7],
+                id1
+            )
+
+            expect(await vote.votes(id))
+                .to.be.equal(1)
+            expect(await vote.votes(id1))
+                .to.be.equal(1)
+        });
+
     });
 
 });
