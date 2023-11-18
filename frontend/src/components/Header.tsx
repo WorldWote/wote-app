@@ -8,7 +8,7 @@ function Header() {
     <Navbar expand="md" bg="primary" variant="dark">
       <Container>
         <Navbar.Brand href="/">
-          <Image src="/images/logo.png"  height={28} className="me-2" />
+          <Image src="/images/logo-small.png"  height={28} className="me-2" />
           Wote
         </Navbar.Brand>
         <Navbar.Collapse id="basic-navbar-nav">

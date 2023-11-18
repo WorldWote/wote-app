@@ -6,12 +6,14 @@ import CandidateCard from '../components/CandidateCard';
 import { Candidate } from '../types/candidate';
 import useCandidates from '../hooks/useCandidates';
 import useVerifyProof from "../hooks/useVerifyProof";
+import { useAccount } from "wagmi";
 
 function Vote() {
   const [loading, setLoading] = useState(false);
   const [selectedCandidate, setSelectedCandidate] = useState<Candidate | null>(null);
   const { data: candidates } = useCandidates();
   const {verifyProof} = useVerifyProof();
+  const {address} = useAccount();
 
   const handleVerify = async (result: any) => {
     if (!selectedCandidate) return;
@@ -35,6 +37,7 @@ function Vote() {
     <IDKitWidget
       app_id={WORLDCOIN_APP_ID} // obtained from the Developer Portal
       action="ioseb-x" // this is your action name from the Developer Portal
+      signal={address}
       onSuccess={onSuccess} // callback when the modal is closed
       handleVerify={handleVerify} // optional callback when the proof is received
       credential_types={[CredentialType.Orb]} // optional, defaults to ['orb']

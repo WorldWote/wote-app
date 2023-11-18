@@ -1,9 +1,8 @@
-import { Button, ButtonProps } from "react-bootstrap";
+import { Button, ButtonProps } from 'react-bootstrap';
 import { prepareWriteContract, waitForTransaction, writeContract } from '@wagmi/core';
 import { abis, addresses } from '../contracts';
 import candidates from '../data/candidates.json';
 import { useState } from 'react';
-import abi from '../contracts/abis/wote.json';
 
 function RegisterCandidates(props: ButtonProps) {
   const [loading, setLoading] = useState(false);
@@ -13,7 +12,7 @@ function RegisterCandidates(props: ButtonProps) {
       setLoading(true);
       const config = await prepareWriteContract({
         address: addresses.wote,
-        abi: abi,
+        abi: abis.wote,
         functionName: 'registerCandidates',
         args: [candidates.map((c) => [c.id, c.name, c.description, c.imageUrl])],
       });
@@ -30,7 +29,7 @@ function RegisterCandidates(props: ButtonProps) {
   return (
     <div>
       <Button variant="primary" onClick={register} {...props}>
-        {loading ? 'Loading...' : 'Register Candidates'}
+        {loading ? 'Registering...' : 'Register Candidates'}
       </Button>
     </div>
   );
