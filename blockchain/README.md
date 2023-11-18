@@ -12,4 +12,4 @@ npx hardhat run --network goerli .\scripts\deploy-receiver-goerli.ts - deploymen
 
 ### Deployment
 - Receiver Address GOERLI: https://goerli.etherscan.io/address/0x9899EDEB43e52A6ac30EC5979f548BF89db12887#readContract
-- Receiver Address SCROLL_SEPHOLIA: https://sepolia.scrollscan.dev/address/0xf8fCa17e8fc92AD26Bfa8E5CcD5900Aeb48d751D
+- Receiver Address SCROLL_SEPOLIA: https://sepolia.scrollscan.dev/address/0xf8fCa17e8fc92AD26Bfa8E5CcD5900Aeb48d751D
