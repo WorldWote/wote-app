@@ -9,7 +9,7 @@ function Header() {
       <Container>
         <Navbar.Brand href="/">
           <Image src="/images/logo-small.png"  height={28} className="me-2" />
-          Wote
+          WorldWote
         </Navbar.Brand>
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">

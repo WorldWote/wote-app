@@ -1,6 +1,6 @@
 {
-  "short_name": "Wote",
-  "name": "Wote App",
+  "short_name": "WorldWote",
+  "name": "WorldWote App",
   "start_url": ".",
   "display": "standalone",
   "theme_color": "#000000",
