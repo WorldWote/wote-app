@@ -1,1 +1,1 @@
-Voting App
+Wote frontend

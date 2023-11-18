@@ -5,14 +5,25 @@ import { WORLDCOIN_APP_ID } from '../settings';
 import CandidateCard from '../components/CandidateCard';
 import { Candidate } from '../types/candidate';
 import useCandidates from '../hooks/useCandidates';
+import useVerifyProof from "../hooks/useVerifyProof";
 
 function Vote() {
+  const [loading, setLoading] = useState(false);
   const [selectedCandidate, setSelectedCandidate] = useState<Candidate | null>(null);
   const { data: candidates } = useCandidates();
+  const {verifyProof} = useVerifyProof();
 
-  const handleVerify = (result: any) => {
-    console.log('handleVerify', result);
-    console.log('selected', selectedCandidate);
+  const handleVerify = async (result: any) => {
+    if (!selectedCandidate) return;
+    setLoading(true);
+    try {
+      await verifyProof(result, selectedCandidate);
+    } catch (e) {
+      alert(e instanceof Error ? e.message : e);
+      console.error(e);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const onSuccess = (result: any) => {
@@ -37,7 +48,7 @@ function Vote() {
           <Row>
             {(candidates as Candidate[]).map((candidate, index) => (
               <Col key={index} xs={12} md={6} lg={4} className="mb-4">
-                <CandidateCard {...candidate} onVoteClick={() => voteClickHandler(candidate)} />
+                <CandidateCard {...candidate} disabled={loading} onVoteClick={() => voteClickHandler(candidate)} />
               </Col>
             ))}
           </Row>

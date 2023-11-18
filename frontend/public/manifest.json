@@ -1,6 +1,6 @@
 {
-  "short_name": "Voting App",
-  "name": "Voting App",
+  "short_name": "Wote",
+  "name": "Wote App",
   "start_url": ".",
   "display": "standalone",
   "theme_color": "#000000",
