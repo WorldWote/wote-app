@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: UNLICENSED
 
-import { IWorldID } from "./interfaces/IWorldID.sol";
+import { IWorldIDGroups } from "./interfaces/IWorldID.sol";
 import { ByteHasher } from './libs/ByteHasher.sol';
 import { Ownable } from "@openzeppelin/contracts/access/Ownable.sol";
 
@@ -20,10 +20,10 @@ contract Wote is Ownable {
     error InvalidNullifier();
 
     /// @dev The address of the World ID Router contract that will be used for verifying proofs
-    IWorldID public immutable worldId;
+    IWorldIDGroups public immutable worldId;
 
     /// @dev The keccak256 hash of the externalNullifier (unique identifier of the action performed), combination of appId and action
-    uint256 internal immutable externalNullifierHash;
+    uint256 public immutable externalNullifierHash;
 
     /// @dev The World ID group ID (1 for Orb-verified)
     uint256 internal immutable groupId = 1;
@@ -44,7 +44,7 @@ contract Wote is Ownable {
     /// @param _appId The World ID app ID
     /// @param _action The World ID action ID
     constructor(
-        IWorldID _worldId,
+        IWorldIDGroups _worldId,
         string memory _appId,
         string memory _action
     ) Ownable(msg.sender)
@@ -76,6 +76,7 @@ contract Wote is Ownable {
         // We now verify the provided proof is valid and the user is verified by World ID
         worldId.verifyProof(
             root,
+            groupId, // set to "1" in the constructor
             abi.encodePacked(signal).hashToField(),
             nullifierHash,
             externalNullifierHash,
