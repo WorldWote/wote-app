@@ -178,7 +178,7 @@
                 "type": "tuple[]"
             }
         ],
-        "name": "registerCandidate",
+        "name": "registerCandidates",
         "outputs": [],
         "stateMutability": "nonpayable",
         "type": "function"

@@ -56,7 +56,7 @@ async function main() {
 
   const woteAbi = JSON.stringify(await getAbi("Wote"), null, 4)
 
-  fs.writeFile(`${FRONTEND_ABI_DIR}/Wote.json`, woteAbi, function (err  ){
+  fs.writeFile(`${FRONTEND_ABI_DIR}/wote.json`, woteAbi, function (err  ){
     if (err) {
       console.log("error while writing in Wote.json", err)
     }

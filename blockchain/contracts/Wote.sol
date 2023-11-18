@@ -93,7 +93,7 @@ contract Wote is Ownable {
     }
 
     /// @param _candidates list of candidates the owner wants to add
-    function registerCandidate(Candidate[] memory _candidates) public onlyOwner {
+    function registerCandidates(Candidate[] memory _candidates) public onlyOwner {
         for (uint256 k = 0; k < _candidates.length; ++ k){
             Candidate memory candidate = _candidates[k];
             require(!usedId[candidate.id], "Wote: can't register candidate, already used id");

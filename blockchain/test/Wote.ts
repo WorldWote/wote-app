@@ -35,9 +35,9 @@ describe("Wote", function () {
 
     describe("Register Candidate", function () {
         it("Should get error while connecting without the deployer address", async function () {
-            const {owner, second, vote} = await loadFixture(deployOneYearLockFixture)
+            const {second, vote} = await loadFixture(deployOneYearLockFixture)
 
-            await expect(vote.connect(second).registerCandidate([{
+            await expect(vote.connect(second).registerCandidates([{
                 id: 1,
                 description: "test1",
                 imageUrl: "test2",
@@ -46,7 +46,7 @@ describe("Wote", function () {
         });
 
         it("Should get error while adding the same ids", async function () {
-            const {second, vote} = await loadFixture(deployOneYearLockFixture)
+            const {vote} = await loadFixture(deployOneYearLockFixture)
 
             const candidate = {
                 id: 1,
@@ -55,9 +55,9 @@ describe("Wote", function () {
                 name: "test3"
             }
 
-            await vote.registerCandidate([candidate])
+            await vote.registerCandidates([candidate])
 
-            await expect(vote.registerCandidate([candidate]))
+            await expect(vote.registerCandidates([candidate]))
                 .to.be.revertedWith("Wote: can't register candidate, already used id")
         });
 
@@ -71,7 +71,7 @@ describe("Wote", function () {
                 name: "test3"
             }
 
-            await vote.registerCandidate([candidate])
+            await vote.registerCandidates([candidate])
 
             const candidates = await vote.getCandidates();
 
