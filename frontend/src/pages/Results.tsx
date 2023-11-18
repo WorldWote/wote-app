@@ -54,26 +54,26 @@ function Results() {
         </Card.Body>
       </Card>
       <Card className="w-100">
-        <Card.Header>Votes records from different networks</Card.Header>
+        <Card.Header>Vote records from different networks</Card.Header>
         <Card.Body>
-          <Table striped bordered hover variant="dark">
+          <Table hover variant="dark">
             <thead>
               <tr>
-                <th>Candidate #</th>
+                <th className="text-end">Candidate #</th>
                 <th>Name</th>
-                <th>OptimismGoerli</th>
-                <th>Goerli</th>
-                <th>ScrollSepolia</th>
+                <th className="text-end">Optimism Goerli</th>
+                <th className="text-end">Goerli</th>
+                <th className="text-end">Scroll Sepolia</th>
               </tr>
             </thead>
             <tbody>
               {candidates?.map((candidate, index) => (
                 <tr key={candidate.id}>
-                  <td>{candidate.id}</td>
+                  <td className="text-end">{candidate.id}</td>
                   <td>{candidate.name}</td>
-                  <td>{candidate.voteCount}</td>
-                  <td>{votes?.[0]?.[index]}</td>
-                  <td>{votes?.[1]?.[index]}</td>
+                  <td className="text-end">{candidate.voteCount}</td>
+                  <td className="text-end">{votes?.[0]?.[index]}</td>
+                  <td className="text-end">{votes?.[1]?.[index]}</td>
                 </tr>
               ))}
             </tbody>
