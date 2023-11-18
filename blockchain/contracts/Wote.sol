@@ -155,6 +155,11 @@ contract Wote is Ownable {
         return candidates;
     }
 
+    /// @dev gets all receivers
+    function getReceivers() public view returns (Receiver[] memory) {
+        return receivers;
+    }
+
     /// @dev receive the money
     receive() external payable {
         // This function is executed when a contract receives plain Ether (without data)

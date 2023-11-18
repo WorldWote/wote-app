@@ -225,6 +225,31 @@
     },
     {
         "inputs": [],
+        "name": "getReceivers",
+        "outputs": [
+            {
+                "components": [
+                    {
+                        "internalType": "uint32",
+                        "name": "chainId",
+                        "type": "uint32"
+                    },
+                    {
+                        "internalType": "address",
+                        "name": "contractAddress",
+                        "type": "address"
+                    }
+                ],
+                "internalType": "struct Receiver[]",
+                "name": "",
+                "type": "tuple[]"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [],
         "name": "mailboxAddress",
         "outputs": [
             {
