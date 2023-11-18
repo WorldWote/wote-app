@@ -5,7 +5,7 @@ import * as path from 'path';
 
 const hre = require("hardhat");
 
-const WORLD_ID_ADDRESS = "0x38f6e15d86574b2d12ddc119b411C7027bcE349c";
+const WORLD_ID_ADDRESS = "0x78eC127A3716D447F4575E9c834d452E397EE9E1";
 const APP_ID = "app_staging_8e51b49daa766cfd178b3c6495f0d61a"
 const ACTION_ID = "ioseb-x"
 
