@@ -3,6 +3,9 @@
 import { IWorldIDGroups } from "./interfaces/IWorldID.sol";
 import { ByteHasher } from './libs/ByteHasher.sol';
 import { Ownable } from "@openzeppelin/contracts/access/Ownable.sol";
+import { IMailbox } from "@hyperlane-xyz/core/contracts/interfaces/IMailbox.sol";
+import { TypeCasts } from "@hyperlane-xyz/core/contracts/libs/TypeCasts.sol";
+
 
 pragma solidity 0.8.21;
 
@@ -13,8 +16,14 @@ struct Candidate {
     string imageUrl;
 }
 
+struct Receiver {
+    uint32 chainId;
+    address contractAddress;
+}
+
 contract Wote is Ownable {
     using ByteHasher for bytes;
+    using TypeCasts for address;
 
     /// @notice Thrown when attempting to reuse a nullifier
     error InvalidNullifier();
@@ -28,11 +37,17 @@ contract Wote is Ownable {
     /// @dev The World ID group ID (1 for Orb-verified)
     uint256 internal immutable groupId = 1;
 
+    /// @dev mailbox address
+    address public mailboxAddress;
+
     /// @dev Whether a nullifier hash has been used already. Used to guarantee an action is only performed once by a single person
     mapping(uint256 => bool) internal nullifierHashes;
 
     /// @dev candidates array
     Candidate[] public candidates;
+
+    /// @dev receiver contracts
+    Receiver[] public receivers;
 
     /// @dev used ids
     mapping(uint256 => bool) usedId;
@@ -46,14 +61,22 @@ contract Wote is Ownable {
     constructor(
         IWorldIDGroups _worldId,
         string memory _appId,
-        string memory _action
+        string memory _action,
+        address _mailboxAddress
     ) Ownable(msg.sender)
     {
+        mailboxAddress = _mailboxAddress;
         worldId = _worldId;
         externalNullifierHash = abi
         .encodePacked(abi.encodePacked(_appId).hashToField(), _action)
         .hashToField();
     }
+
+    // alignment preserving cast
+    function addressToBytes32(address _addr) internal pure returns (bytes32) {
+        return bytes32(uint256(uint160(_addr)));
+    }
+
 
     function hashToField(bytes memory value) internal pure returns (uint256) {
         return uint256(keccak256(abi.encodePacked(value))) >> 8;
@@ -91,6 +114,15 @@ contract Wote is Ownable {
 
         // increasing option's vote count
         votes[candidateId] += 1;
+
+        for (uint256 k = 0; k < receivers.length; ++ k ) {
+            // send message  recipient
+            IMailbox(mailboxAddress).dispatch(
+                receivers[k].chainId,
+                receivers[k].contractAddress.addressToBytes32(),
+                bytes("hello, world")
+            );
+        }
     }
 
     /// @dev this method is added for testing
@@ -107,6 +139,14 @@ contract Wote is Ownable {
             candidates.push(candidate);
         }
     }
+
+    /// @param _receivers receiver contracts
+    function addReceivers(Receiver[] memory _receivers) public onlyOwner {
+        for (uint256 k = 0; k < _receivers.length; ++ k){
+            receivers.push(_receivers[k]);
+        }
+    }
+
 
     /// @dev gets all candidates
     function getCandidates() public view returns (Candidate[] memory) {

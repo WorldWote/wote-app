@@ -1,6 +1,7 @@
 {
   "name": "hardhat-project",
   "dependencies": {
+    "@hyperlane-xyz/sdk": "^3.1.9",
     "@nomicfoundation/hardhat-toolbox": "^2.0.1",
     "@openzeppelin/contracts": "^5.0.0",
     "circomlib": "^2.0.5",

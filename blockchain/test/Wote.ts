@@ -7,6 +7,7 @@ import { expect } from "chai";
 const WORLD_ID_ADDRESS = "0x38f6e15d86574b2d12ddc119b411C7027bcE349c";
 const APP_ID = "test"
 const ACTION_ID = "test"
+const MAILBOX_ADDRESS = "0x38f6e15d86574b2d12ddc119b411C7027bcE349c";
 
 describe("Wote", function () {
     // We define a fixture to reuse the same setup in every test.
@@ -19,7 +20,7 @@ describe("Wote", function () {
 
 
         const Wote = await ethers.getContractFactory("Wote");
-        const vote = await Wote.deploy(WORLD_ID_ADDRESS, APP_ID, ACTION_ID);
+        const vote = await Wote.deploy(WORLD_ID_ADDRESS, APP_ID, ACTION_ID, MAILBOX_ADDRESS);
 
         return {owner, second, third, vote};
     }
@@ -179,6 +180,26 @@ describe("Wote", function () {
                 .to.be.equal(1)
         });
 
+    });
+
+    describe("Register Receivers", function () {
+        it("should fail while register receivers correctly", async function () {
+            const {second, vote} = await loadFixture(deployOneYearLockFixture)
+
+            await expect(vote.connect(second).addReceivers([{
+                chainId: 5,
+                contractAddress: second.address
+            }])).to.be.revertedWithCustomError(vote, "OwnableUnauthorizedAccount")
+        });
+
+        it("should register receivers correctly", async function () {
+            const {second, vote} = await loadFixture(deployOneYearLockFixture)
+
+            await vote.addReceivers([{
+                chainId: 5,
+                contractAddress: second.address
+            }])
+        });
     });
 
 });
