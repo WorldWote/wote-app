@@ -7,6 +7,8 @@ const hre = require("hardhat");
 
 const WORLD_ID_ADDRESS = "0x515f06B36E6D3b707eAecBdeD18d8B384944c87f";
 const APP_ID = "app_staging_8e51b49daa766cfd178b3c6495f0d61a"
+const MAILBOX_ADDRESS = "0x515f06B36E6D3b707eAecBdeD18d8B384944c87f"
+
 const ACTION_ID = "ioseb-x"
 
 
@@ -42,13 +44,20 @@ async function getAbi(contractName: string) {
 
 async function main() {
   const [deployer] = await ethers.getSigners();
-
-  const Wote = await ethers.getContractFactory("Wote");
-
-  const vote = await Wote.deploy(WORLD_ID_ADDRESS, APP_ID, ACTION_ID);
   console.log(`Deployer address: ${deployer.address}`)
+
+  // deploying receiver
+  const Receiver = await ethers.getContractFactory("Receiver");
+  const receiver = await Receiver.deploy(MAILBOX_ADDRESS);
+  console.log(`Receivers address: ${receiver.address}`)
+
+  // deploying Wote
+  const Wote = await ethers.getContractFactory("Wote");
+  const vote = await Wote.deploy(WORLD_ID_ADDRESS, APP_ID, ACTION_ID, MAILBOX_ADDRESS);
   console.log(`Wote address: ${vote.address}`)
-  await verifyContract(vote.address, [WORLD_ID_ADDRESS, APP_ID, ACTION_ID]);
+
+  // verifying contracts
+  await verifyContract(vote.address, [WORLD_ID_ADDRESS, APP_ID, ACTION_ID, MAILBOX_ADDRESS]);
 
   const contracts = JSON.stringify({
     wote: vote.address
