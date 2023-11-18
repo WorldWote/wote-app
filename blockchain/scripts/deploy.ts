@@ -51,12 +51,12 @@ async function main() {
   await verifyContract(vote.address, [WORLD_ID_ADDRESS, APP_ID, ACTION_ID]);
 
   const contracts = JSON.stringify({
-    Wote: vote.address
+    wote: vote.address
   }, null, 4)
 
   const woteAbi = JSON.stringify(await getAbi("Wote"), null, 4)
 
-  fs.writeFile(`${FRONTEND_ABI_DIR}/Wote.json`, woteAbi, function (err  ){
+  fs.writeFile(`${FRONTEND_ABI_DIR}/wote.json`, woteAbi, function (err  ){
     if (err) {
       console.log("error while writing in Wote.json", err)
     }

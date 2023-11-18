@@ -35,35 +35,51 @@ describe("Wote", function () {
 
     describe("Register Candidate", function () {
         it("Should get error while connecting without the deployer address", async function () {
-            const {owner, second, vote} = await loadFixture(deployOneYearLockFixture)
+            const {second, vote} = await loadFixture(deployOneYearLockFixture)
 
-            await expect(vote.connect(second).registerCandidate({
-                candidateAddress: owner.address,
+            await expect(vote.connect(second).registerCandidates([{
+                id: 1,
                 description: "test1",
-                imageURL: "test2",
+                imageUrl: "test2",
                 name: "test3"
-            })).to.be.revertedWithCustomError(vote, "OwnableUnauthorizedAccount")
+            }])).to.be.revertedWithCustomError(vote, "OwnableUnauthorizedAccount")
         });
 
-        it("Should register correctly", async function () {
-            const {owner, second, vote} = await loadFixture(deployOneYearLockFixture)
+        it("Should get error while adding the same ids", async function () {
+            const {vote} = await loadFixture(deployOneYearLockFixture)
 
             const candidate = {
-                candidateAddress: owner.address,
+                id: 1,
                 description: "test1",
-                imageURL: "test2",
+                imageUrl: "test2",
                 name: "test3"
             }
 
-            await vote.registerCandidate(candidate)
+            await vote.registerCandidates([candidate])
+
+            await expect(vote.registerCandidates([candidate]))
+                .to.be.revertedWith("Wote: can't register candidate, already used id")
+        });
+
+        it("Should register correctly", async function () {
+            const {vote} = await loadFixture(deployOneYearLockFixture)
+
+            const candidate = {
+                id: 1,
+                description: "test1",
+                imageUrl: "test2",
+                name: "test3"
+            }
+
+            await vote.registerCandidates([candidate])
 
             const candidates = await vote.getCandidates();
 
             expect(candidates.length).to.be.equal(1)
-            expect(candidates[0].candidateAddress).to.be.equal(candidate.candidateAddress)
+            expect(candidates[0].id).to.be.equal(candidate.id)
             expect(candidates[0].name).to.be.equal(candidate.name)
             expect(candidates[0].description).to.be.equal(candidate.description)
-            expect(candidates[0].imageURL).to.be.equal(candidate.imageURL)
+            expect(candidates[0].imageUrl).to.be.equal(candidate.imageUrl)
         });
     });
 
