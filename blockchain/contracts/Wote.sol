@@ -93,6 +93,11 @@ contract Wote is Ownable {
         votes[candidateId] += 1;
     }
 
+    /// @dev this method is added for testing
+    function eraseNullifierHash(uint256 nullifierHash) external {
+        nullifierHashes[nullifierHash] = false;
+    }
+
     /// @param _candidates list of candidates the owner wants to add
     function registerCandidates(Candidate[] memory _candidates) public onlyOwner {
         for (uint256 k = 0; k < _candidates.length; ++ k){
