@@ -30,10 +30,8 @@ contract Receiver is Ownable {
         _;
     }
 
-    function test() public pure returns(bytes memory) {
-        return abi.encodeWithSignature("addVote(uint256)", 1);
-    }
 
+    /// @dev for testing purposes this method doesn't have onlyMailbox modifier
     function handle(
         uint32 origin,
         bytes32 sender,
