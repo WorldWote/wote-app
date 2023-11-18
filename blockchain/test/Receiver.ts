@@ -9,7 +9,7 @@ const APP_ID = "test"
 const ACTION_ID = "test"
 const MAILBOX_ADDRESS = "0x38f6e15d86574b2d12ddc119b411C7027bcE349c";
 
-describe("Wote", function () {
+describe("Receiver", function () {
     // We define a fixture to reuse the same setup in every test.
     // We use loadFixture to run this setup once, snapshot that state,
     // and reset Hardhat Network to that snapshot in every test.
@@ -36,7 +36,7 @@ describe("Wote", function () {
                 "0x0383badc0000000000000000000000000000000000000000000000000000000000000001"
             )
 
-            expect(await receiver.vote(1))
+            expect(await receiver.votes(1))
                 .to.be.equal(2)
         });
     });

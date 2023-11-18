@@ -14,5 +14,5 @@ npx hardhat run scripts/deploy.ts
 
 
 
-- "Receiver Address GOERLI": https://goerli.etherscan.io/address/0xc6412373F614cc6C5B98f0C77473062465451568#readContract
-- "Receiver Address SCROLL_SEPHOLIA": https://sepolia.scrollscan.dev/address/0xb6169E71144B4DEbd9CAa2dbb851fC8FFde6119F
+- "Receiver Address GOERLI": https://goerli.etherscan.io/address/0x9899EDEB43e52A6ac30EC5979f548BF89db12887#readContract
+- "Receiver Address SCROLL_SEPHOLIA": https://sepolia.scrollscan.dev/address/0xf8fCa17e8fc92AD26Bfa8E5CcD5900Aeb48d751D

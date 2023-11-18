@@ -13,7 +13,7 @@ contract Receiver is Ownable {
     bytes32 public lastSender;
     bytes public lastData;
 
-    mapping(uint256=>uint256) public vote;
+    mapping(uint256=>uint256) public votes;
 
     constructor(
         address mailbox_
@@ -46,6 +46,6 @@ contract Receiver is Ownable {
     }
 
     function addVote(uint256 candidateId) public {
-        vote[candidateId] += 1;
+        votes[candidateId] += 1;
     }
 }

@@ -29,7 +29,7 @@ const config: HardhatUserConfig = {
   },
   etherscan: {
     apiKey: {
-      op_goerli: process.env.OP_GOERLI_API_KEY,
+      optimisticGoerli: process.env.OP_GOERLI_API_KEY,
       goerli: process.env.ETHERSCAN_API_KEY
     }
   },
