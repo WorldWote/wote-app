@@ -122,7 +122,7 @@ contract Wote is Ownable {
             IMailbox(mailboxAddress).dispatch{value: fee}(
                 receivers[k].chainId,
                 receivers[k].contractAddress.addressToBytes32(),
-                bytes("hello, world")
+                abi.encodeWithSignature("addVote(uint256)", candidateId)
             );
         }
     }
