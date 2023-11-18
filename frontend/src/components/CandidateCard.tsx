@@ -6,7 +6,7 @@ type Props = Candidate & {
   disabled?: boolean;
 };
 
-function CandidateCard({ id, imageUrl, name, description, onVoteClick, disabled = false }: Props) {
+function CandidateCard({ id, imageUrl, name, description, voteCount, onVoteClick, disabled = false }: Props) {
   return (
     <Card className="candidate h-100 rounded-4 overflow-hidden">
       <div
@@ -19,6 +19,7 @@ function CandidateCard({ id, imageUrl, name, description, onVoteClick, disabled 
       <Card.Body className="">
         <Card.Title className="fw-bold">{name}</Card.Title>
         <Card.Text>{description}</Card.Text>
+        <Card.Text className="fw-bold fs-4">{voteCount} votes</Card.Text>
       </Card.Body>
       <Card.Footer className="p-3">
         <Button className="w-100 fw-bold" size="lg" disabled={disabled} onClick={onVoteClick}>
