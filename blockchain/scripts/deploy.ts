@@ -7,7 +7,7 @@ const hre = require("hardhat");
 
 const WORLD_ID_ADDRESS = "0x515f06B36E6D3b707eAecBdeD18d8B384944c87f";
 const APP_ID = "app_staging_8e51b49daa766cfd178b3c6495f0d61a"
-const MAILBOX_ADDRESS = "0x515f06B36E6D3b707eAecBdeD18d8B384944c87f"
+const MAILBOX_ADDRESS = "0xB5f021728Ea6223E3948Db2da61d612307945eA2"
 
 const ACTION_ID = "ioseb-x"
 
@@ -45,11 +45,6 @@ async function getAbi(contractName: string) {
 async function main() {
   const [deployer] = await ethers.getSigners();
   console.log(`Deployer address: ${deployer.address}`)
-
-  // deploying receiver
-  const Receiver = await ethers.getContractFactory("Receiver");
-  const receiver = await Receiver.deploy(MAILBOX_ADDRESS);
-  console.log(`Receivers address: ${receiver.address}`)
 
   // deploying Wote
   const Wote = await ethers.getContractFactory("Wote");
