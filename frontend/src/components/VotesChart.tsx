@@ -16,6 +16,7 @@ ChartJS.defaults.borderColor = '#444';
 
 export const options = {
   responsive: true,
+
   plugins: {
     legend: {
       display: false,
@@ -26,19 +27,17 @@ export const options = {
       text: 'Current Vote Results',
     },
   },
+
   scales: {
     y: {
       title: {
         display: true,
-        text: 'Value'
+        text: 'Percentage',
       },
       min: 0,
-      ticks: {
-        // forces step size to be 50 units
-        stepSize: 1
-      }
-    }
-  }
+      max: 100,
+    },
+  },
 };
 
 type Props = {
@@ -47,7 +46,7 @@ type Props = {
 
 function VotesChart({ candidates }: Props) {
   const labels = candidates.map((c: any) => `${c.name}, ${c.id}`);
-  const votes = candidates.map((c: any) => c.voteCount);
+  const votes = candidates.map((c: any) => c.votePercentage);
   const data = {
     labels,
     datasets: [
