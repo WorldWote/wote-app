@@ -18,6 +18,7 @@ function RegisterCandidates(props: ButtonProps) {
       });
       const { hash } = await writeContract(config);
       await waitForTransaction({ hash });
+      window.location.reload();
     } catch (e) {
       alert(e instanceof Error ? e.message : e);
       console.error(e);

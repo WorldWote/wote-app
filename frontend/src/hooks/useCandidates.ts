@@ -1,9 +1,9 @@
-import { useContractRead, useContractReads } from "wagmi";
+import { useContractRead, useContractReads } from 'wagmi';
 import { abis, addresses } from '../contracts';
 import { Candidate } from '../types/candidate';
 
 function useCandidates() {
-  const { data } = useContractRead({
+  const { data, refetch: refetchCandidates } = useContractRead({
     address: addresses.wote,
     abi: abis.wote,
     functionName: 'getCandidates',
@@ -12,26 +12,33 @@ function useCandidates() {
 
   console.log(data);
 
-  const {data: votes} = useContractReads({
+  const { data: votes , refetch: refetchVotes} = useContractReads({
     contracts: data?.map((candidate: any) => ({
       address: addresses.wote,
       abi: abis.wote,
       functionName: 'votes',
       args: [candidate.id],
-    }))
+    })),
   });
 
-  console.log(votes);
+  const totalCount = votes?.reduce((acc, vote) => {
+     return acc + Number(vote.result as any);
+  }, 0);
 
   const candidates: Candidate[] = data
     ? data.map((candidate: any, index) => ({
         ...candidate,
         id: Number(candidate.id),
         voteCount: Number(votes?.[index]?.result ?? 0),
+        votePercentage: totalCount ? Number(votes?.[index]?.result ?? 0) / totalCount * 100 : 0,
       }))
     : [];
 
-  return { data: candidates };
+  const refetch = async () => {
+    await refetchCandidates();
+    await refetchVotes();
+  }
+  return { data: candidates, refetch };
 }
 
 export default useCandidates;

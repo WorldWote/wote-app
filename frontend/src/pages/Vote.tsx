@@ -11,12 +11,13 @@ import { useAccount } from "wagmi";
 function Vote() {
   const [loading, setLoading] = useState(false);
   const [selectedCandidate, setSelectedCandidate] = useState<Candidate | null>(null);
-  const { data: candidates } = useCandidates();
+  const { data: candidates, refetch  } = useCandidates();
   const {verifyProof} = useVerifyProof();
   const {address} = useAccount();
 
   const handleVerify = async (result: any) => {
     if (!selectedCandidate) return;
+    console.log('nullifier_hash', result.nullifier_hash);
     setLoading(true);
     try {
       await verifyProof(result, selectedCandidate);
@@ -25,12 +26,13 @@ function Vote() {
       console.error(e);
     } finally {
       setLoading(false);
+      await refetch()
     }
   };
 
   const onSuccess = (result: any) => {
-    console.log('onSuccess', result);
-    console.log('selected', selectedCandidate);
+    // console.log('onSuccess', result);
+    // console.log('selected', selectedCandidate);
   };
 
   return (

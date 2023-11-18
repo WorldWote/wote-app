@@ -4,4 +4,5 @@ export type Candidate = {
   description: string;
   imageUrl: string;
   voteCount?: number;
+  votePercentage?: number;
 };
