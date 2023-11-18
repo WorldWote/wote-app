@@ -14,11 +14,6 @@ function Menu() {
               Vote
             </Button>
           </Link>
-          <Link to="/results">
-            <Button size="lg" variant="primary" className="w-100" style={{height: buttonHeight}}>
-              Results
-            </Button>
-          </Link>
         </Stack>
       </div>
     </>
