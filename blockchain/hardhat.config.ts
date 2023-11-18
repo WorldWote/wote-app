@@ -14,13 +14,18 @@ const config: HardhatUserConfig = {
       url: process.env.GOERLI_URL,
       accounts: [process.env.ACCOUNT_PRIVATE_KEY]
     },
+    op_goerli: {
+      url: process.env.OP_GOERLI,
+      accounts: [process.env.ACCOUNT_PRIVATE_KEY]
+    },
+
   },
   gasReporter: {
     enabled: (process.env.REPORT_GAS) ? true : false,
     coinmarketcap: process.env.COINMARKETCAP_API_KEY,
   },
   etherscan: {
-    apiKey: process.env.ETHERSCAN_API_KEY
+    apiKey: process.env.OP_GOERLI_API_KEY
   },
 };
 
