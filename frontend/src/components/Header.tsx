@@ -1,4 +1,5 @@
 import {Container, Nav, Navbar} from "react-bootstrap";
+import RegisterCandidates from "./RegisterCandidates";
 
 function Header() {
   return (
@@ -11,6 +12,8 @@ function Header() {
               {/*<Nav.Link href="#link">Link</Nav.Link>*/}
             </Nav>
           </Navbar.Collapse>
+          <RegisterCandidates />
+
           <div className="ms-auto">
             <w3m-button />
           </div>

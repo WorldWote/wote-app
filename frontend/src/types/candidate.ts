@@ -1,5 +1,5 @@
 export type Candidate = {
-  id: string;
+  id: number;
   name: string;
   description: string;
   imageUrl: string;

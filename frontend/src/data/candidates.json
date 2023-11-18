@@ -1,0 +1,32 @@
+[
+  {
+    "id": 2,
+    "name": "Steven M. Guarino",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nu",
+    "imageUrl": "https://worldwote.vercel.app/images/candidates/1.png"
+  },
+  {
+    "id": 27,
+    "name": "Brian D. Duchesne",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nu",
+    "imageUrl": "https://worldwote.vercel.app/images/candidates/2.png"
+  },
+  {
+    "id": 15,
+    "name": "Alica C. Marquez",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nu",
+    "imageUrl": "https://worldwote.vercel.app/images/candidates/3.png"
+  },
+  {
+    "id": 44,
+    "name": "Jon T. Dicken",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nu",
+    "imageUrl": "https://worldwote.vercel.app/images/candidates/4.png"
+  },
+  {
+    "id": 7,
+    "name": "Pamela C. Greaves",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nu",
+    "imageUrl": "https://worldwote.vercel.app/images/candidates/5.png"
+  }
+]
