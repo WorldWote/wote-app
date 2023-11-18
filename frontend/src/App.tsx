@@ -1,7 +1,6 @@
 import React from 'react';
 import { Container } from 'react-bootstrap';
 import Header from './components/Header';
-import Menu from './pages/Menu';
 import { Route, Routes } from 'react-router-dom';
 import Vote from './pages/Vote';
 import Results from './pages/Results';
@@ -26,10 +25,10 @@ function App() {
               </div>
             ) : (
               <Routes>
-                <Route path="/vote" element={<Vote />} />
                 <Route path="/results" element={<Results />} />
                 <Route path="/dev" element={<Dev />} />
-                <Route path="*" element={<Menu />} />
+                <Route path="/vote" element={<Vote />} />
+                <Route path="*" element={<Vote />} />
               </Routes>
             )
           ) : (

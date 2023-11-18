@@ -11,10 +11,12 @@ function Header() {
         </Navbar.Brand>
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
+            <Nav.Link as={Link} to="/vote">
+              Vote
+            </Nav.Link>
             <Nav.Link as={Link} to="/results">
               Results
             </Nav.Link>
-            {/*<Nav.Link href="#link">Link</Nav.Link>*/}
           </Nav>
         </Navbar.Collapse>
 
