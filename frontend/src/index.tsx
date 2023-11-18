@@ -16,8 +16,8 @@ const projectId = PROJECT_ID;
 
 // 2. Create wagmiConfig
 const metadata = {
-  name: 'WorldWote',
-  description: 'WorldWote App',
+  name: 'WorldVote',
+  description: 'WorldVote App',
   // url: 'https://web3modal.com',
   // icons: ['https://avatars.githubusercontent.com/u/37784886']
 };
