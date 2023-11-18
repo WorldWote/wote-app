@@ -48,13 +48,13 @@ async function main() {
   const vote = await Wote.deploy(WORLD_ID_ADDRESS, APP_ID, ACTION_ID);
   console.log(`Deployer address: ${deployer.address}`)
   console.log(`Wote address: ${vote.address}`)
-  await verifyContract(vote.address, [WORLD_ID_ADDRESS, APP_ID, ACTION_ID]);
+  // await verifyContract(vote.address, [WORLD_ID_ADDRESS, APP_ID, ACTION_ID]);
 
   const contracts = JSON.stringify({
     Wote: vote.address
-  })
+  }, null, 4)
 
-  const woteAbi = JSON.stringify(await getAbi("Wote"))
+  const woteAbi = JSON.stringify(await getAbi("Wote"), null, 4)
 
   fs.writeFile(`${FRONTEND_ABI_DIR}/Wote.json`, woteAbi, function (err  ){
     if (err) {
