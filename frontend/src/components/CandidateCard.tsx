@@ -18,8 +18,8 @@ function CandidateCard({ id, imageUrl, name, description, voteCount, votePercent
       <Card.Img variant="top" src={imageUrl} height={300} className="object-fit-cover" style={{objectFit: 'cover'}} />
       <Card.Body className="">
         <Card.Title className="fw-bold">{name}</Card.Title>
-        <Card.Text>{description}</Card.Text>
-        <Card.Text className="fw-bold fs-4">{voteCount} votes ({votePercentage?.toFixed(1)}%)</Card.Text>
+        {/*<Card.Text>{description}</Card.Text>*/}
+        {/*<Card.Text className="fw-bold fs-4">{voteCount} votes ({votePercentage?.toFixed(1)}%)</Card.Text>*/}
       </Card.Body>
       <Card.Footer className="p-3">
         <Button className="w-100 fw-bold" size="lg" disabled={disabled} onClick={onVoteClick}>
